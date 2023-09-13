@@ -1,0 +1,96 @@
+-- component box:
+caption title: Default Header
+body body: Default Body
+boolean $open: false
+boolean $over: false
+ftd.image-src img1:
+ftd.image-src img2:
+ftd.color headercolor: $header-text-color
+ftd.color bordercolor: $border-color
+ftd.color bodycolor: $body-text-color
+ftd.color hovercolor: $hover-color
+optional ftd.color bg-header: $bg-header
+optional ftd.color bg-body: $bg-body
+optional ftd.responsive-type role:
+
+-- ftd.column:
+border-width.px: 4
+spacing.fixed.px: 10
+width: fill-container
+margin.px: 10
+border-color: $box.bordercolor
+color: $box.bodycolor
+background.solid: $box.bg-body
+
+-- ftd.row: 
+width: fill-container
+spacing: space-between
+border-bottom-width.px: 1
+padding.px: 10
+border-color: $box.bordercolor
+color: $box.headercolor
+background.solid: $box.bg-header
+background.solid if { box.over }: $box.hovercolor 
+$on-click$: $toggle($value = $box.open)
+$on-mouse-enter$: $ftd.set-bool($a = $box.over, v = true)
+$on-mouse-leave$: $ftd.set-bool($a = $box.over, v = false)
+
+-- ftd.text: $box.title
+style: bold
+role: $inherited.types.heading-medium
+
+-- ftd.image:
+src: $box.img1
+width.fixed.px: 50
+height.fixed.px: 50
+padding.px: 10
+if: { box.open }
+
+-- ftd.image:
+src: $box.img2
+width.fixed.px: 50
+height.fixed.px: 50
+padding.px: 10
+if: { !box.open }
+
+-- end: ftd.row
+
+-- ftd.text: $box.body
+padding.px: 10
+height: hug-content
+role: $inherited.types.copy-regular
+if: { box.open }
+
+-- end: ftd.column
+
+-- end: box
+
+-- void toggle(value):
+boolean $value:
+
+value = !value;
+
+
+-- ftd.color bg-header:
+light: #F0FFFF
+dark: #235294
+
+-- ftd.color bg-body:
+light: #89CFF0
+dark: #235294
+
+-- ftd.color header-text-color:
+light: #5F9EA0
+dark: #e2e82c
+
+-- ftd.color body-text-color:
+light: #0047AB
+dark: #e2e82c
+
+-- ftd.color border-color:
+light: #6495ED
+dark: #a0b2c1
+
+-- ftd.color $hover-color:
+light: #6F8FAF
+dark: #5276a9
